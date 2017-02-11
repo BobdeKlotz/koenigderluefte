@@ -12,14 +12,15 @@ export class HelloIonicPage implements OnInit {
 
   data: any;
   map: any;
+  start: any;
+  end: any;
+
+  startCoordinate: any;
+  endCoordinate: any;
 
   constructor(private http: Http) { }
 
   ngOnInit() {
-
-    // [11.074339, 49.445591]
-    // [49.445591, 11.074339]
-
     var token = 'pk.eyJ1IjoibDIxMTA1MjQiLCJhIjoiY2l6MTFjOTV3MDAxbzJ3a2E1MjJrdm4xYyJ9.fDGPLz7xwTULovMwYPheCg';
 
     this.map = L.map('map').setView([49.445591, 11.074339], 13);
@@ -32,25 +33,49 @@ export class HelloIonicPage implements OnInit {
     }).addTo(this.map);
 
     this.drawDEATH();
-    let start = '48.78318401154461,9.161343969753943';
-    const end = '48.76598843226049,9.178939260891639';
-    this.getPaths(start, end, 'bike', 'green');
-    this.getPaths(start, end, 'car', 'red');
   }
 
-  getPaths(start, end, vehicle, color) {
-    this.http.get(`http://46.4.67.134:8989/route/?point=${start}&point=${end}&locale=de&vehicle=${vehicle}&elevation=false&use_miles=false&points_encoded=false`)
+  go() {
+    this.getStart();
+  }
+
+
+  getStart() {
+    if (!this.start) return;
+    this.http.get(`https://graphhopper.com/api/1/geocode?q=${this.start}&locale=de&key=14be7024-59f0-42df-baec-9ab54614d2c6`)
       .subscribe(
       result => {
-        this.data = result.json();
-        this.drawPaths(color);
+        let point = result.json().hits[0].point;
+        this.startCoordinate = point.lat + "," + point.lng;
+        this.getEnd();
       }
       );
   }
 
+  getEnd() {
+    if (!this.end) return;
+    this.http.get(`https://graphhopper.com/api/1/geocode?q=${this.end}&locale=de&key=14be7024-59f0-42df-baec-9ab54614d2c6`)
+      .subscribe(
+      result => {
+        let point = result.json().hits[0].point;
+        this.endCoordinate = point.lat + "," + point.lng;
+        this.getPaths('bike', 'green');
+        this.getPaths('car', 'red');
+      });
+  }
+
+  getPaths(vehicle, color) {
+    this.http.get(`http://46.4.67.134:8989/route/?point=${this.startCoordinate}&point=${this.endCoordinate}&locale=de&vehicle=${vehicle}&elevation=false&use_miles=false&points_encoded=false`)
+      .subscribe(
+      result => {
+        this.data = result.json();
+        this.drawPaths(color);
+      });
+  }
+
   drawPaths(color) {
     this.data.paths.forEach(path => {
-      console.log(path);      
+      console.log(path);
       path.points.coordinates.map((c) => { return c.reverse(); });
       var polyline = L.polyline(path.points.coordinates, { color: color }).addTo(this.map);
       this.map.fitBounds(polyline.getBounds());

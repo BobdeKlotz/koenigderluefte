@@ -14,17 +14,17 @@
 
     <ion-item>
       <ion-label fixed>Start</ion-label>
-      <ion-input type="text" value="Nürnberg"></ion-input>
+      <ion-input type="text" [value]="start" [(ngModel)]="start"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label fixed>Ziel</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" [value]="end" [(ngModel)]="end"></ion-input>
     </ion-item>
 
   </ion-list>
 
-  <button ion-button full class="flex-item">Routen finden</button>
+  <button ion-button full class="flex-item" (tap)="go()">Routen finden</button>
 
   <ion-content class="flex-item">
     <div id="map"></div>
