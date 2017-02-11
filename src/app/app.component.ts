@@ -5,6 +5,8 @@ import { Platform, MenuController, Nav } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
+import { ProgressPage } from '../pages/progress/progress';
+import { AboutPage } from '../pages/about/about';
 import { ListPage } from '../pages/list/list';
 
 
@@ -27,7 +29,8 @@ export class MyApp {
     // set our app's pages
     this.pages = [
       { title: 'Route', component: HelloIonicPage },
-      { title: 'Punkte', component: ListPage }
+      { title: 'Fortschritt', component: ProgressPage },
+      { title: 'Über...', component: AboutPage}
     ];
   }
 

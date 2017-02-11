@@ -2,6 +2,8 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
+import { ProgressPage } from '../pages/progress/progress';
+import { AboutPage } from '../pages/about/about';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
 
@@ -9,6 +11,8 @@ import { ListPage } from '../pages/list/list';
   declarations: [
     MyApp,
     HelloIonicPage,
+    ProgressPage,
+    AboutPage,
     ItemDetailsPage,
     ListPage
   ],
@@ -19,6 +23,8 @@ import { ListPage } from '../pages/list/list';
   entryComponents: [
     MyApp,
     HelloIonicPage,
+    ProgressPage,
+    AboutPage,
     ItemDetailsPage,
     ListPage
   ],
