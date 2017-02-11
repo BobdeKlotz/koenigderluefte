@@ -8,27 +8,26 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="flex-container">
 
-<ion-list>
+  <ion-list class="flex-item">
 
- <ion-item>
-    <ion-label fixed>Start</ion-label>
-    <ion-input type="text" value=""></ion-input>
-  </ion-item>
+    <ion-item>
+      <ion-label fixed>Start</ion-label>
+      <ion-input type="text" value="Nürnberg"></ion-input>
+    </ion-item>
 
- <ion-item>
-    <ion-label fixed>Ziel</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
+    <ion-item>
+      <ion-label fixed>Ziel</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
 
-</ion-list>
+  </ion-list>
 
-<iframe style="border: 1px solid black;"
-        src="https://www.openstreetmap.org/export/embed.html?bbox=9.0993,48.7446,9.2737,48.8108&amp;layer=mapnik"
-        height="100%" width="100%"
-        frameborder="0" marginwidth="0" marginheight="0"
-        scrolling="no">
-</iframe>
+  <button ion-button full>Routen finden</button>
+
+  <ion-content class="flex-item">
+    <div id="map"></div>
+  </ion-content>
 
 </ion-content>
